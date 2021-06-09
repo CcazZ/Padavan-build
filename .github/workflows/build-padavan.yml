@@ -5,10 +5,10 @@ on:
   release:
     types: [published]
   push:
-    tags:
-    - 'v*'
-  #  branches: 
-  #    - master
+    branches:
+      - master
+    paths:
+      - '.github/workflows/build-padavan.yml'
 #  schedule:
 #    - cron: 0 8 * * 5
   watch:
