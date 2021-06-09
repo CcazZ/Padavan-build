@@ -39,7 +39,8 @@ jobs:
     - name: Fix htop makefile error
       run: |
         cd  /opt/rt-n56u/trunk/user/htop
-        sed -i 's/https:\/\/bintray.com\/htop\/source\/download_file?file_path=htop-3.0.2.tar.gz/https:\/\/src.fedoraproject.org\/repo\/pkgs\/htop\/htop-3.0.2.tar.gz/g' Makefile   
+        #sed -i 's/https:\/\/bintray.com\/htop\/source\/download_file?file_path=htop-3.0.2.tar.gz/https:\/\/src.fedoraproject.org\/repo\/pkgs\/htop\/htop-3.0.2.tar.gz/g' Makefile
+        sed 's?https://bintray.com/htop/source/download_file\?file_path=htop-3.0.2.tar.gz?https://src.fedoraproject.org/repo/pkgs/htop/htop-3.0.2.tar.gz?' Makefile
     - name: Build Firmware
       env:
         TNAME: MI-R3G
