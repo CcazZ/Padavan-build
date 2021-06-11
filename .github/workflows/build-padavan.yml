@@ -1,4 +1,4 @@
-name: Build OpenWrt
+name: Build Padavan for Xiaomi Router 3G
 
 on:
   release:
@@ -39,26 +39,17 @@ jobs:
         cd /opt/rt-n56u/toolchain-mipsel
         sh dl_toolchain.sh
         mkdir -p /opt/images/
-        
-    - name: executing remote ssh commands using password
-      uses: appleboy/ssh-action@master
-      with:
-        host: ${{ secrets.HOST }}
-        username: ${{ secrets.USERNAME }}
-        password: ${{ secrets.PASSWORD }}
-        script: whoami
 
     - name: Edit .config
       run: |
-        [ -e diy.sh ] && mv diy.sh /opt/rt-n56u/trunk/
-        cd /opt/rt-n56u/trunk
-        if [ ! -f configs/templates/$TNAME.config ] ; then
-        echo "configs/templates/$TNAME.config not found "
+        if [ ! -f /opt/rt-n56u/trunk/configs/templates/$TNAME.config ] ; then
+        echo "$TNAME.config not found "
         exit 1
         fi
-        cp -f configs/templates/$TNAME.config .config
+        cp -f /opt/rt-n56u/trunk/configs/templates/$TNAME.config .config
         chmod +x diy.sh
         ../diy.sh
+        cp -f .config /opt/rt-n56u/trunk/
 
     - name: Build Firmware
       run: |
