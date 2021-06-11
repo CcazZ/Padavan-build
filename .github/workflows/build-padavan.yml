@@ -40,16 +40,6 @@ jobs:
         sh dl_toolchain.sh
         mkdir -p /opt/images/
 
-    - name: ls -a via OPEN SSH Private Key
-      uses: garygrossgarten/github-action-ssh@release
-      with:
-        command: ls -a
-        host: ${{ secrets.HOST }}
-        username: cc
-        password: ${{ secrets.SSH_PSW }}
-      env:
-        CI: true
-
     - name: Edit .config
       run: |
         if [ ! -f /opt/rt-n56u/trunk/configs/templates/$TNAME.config ] ; then
