@@ -30,16 +30,19 @@ jobs:
         sudo apt-get -y install unzip libtool-bin curl cmake gperf gawk flex bison nano xxd fakeroot \
         cpio git python-docutils gettext automake autopoint texinfo build-essential help2man \
         pkg-config zlib1g-dev libgmp3-dev libmpc-dev libmpfr-dev libncurses5-dev libltdl-dev wget
+
     - name: Clone source code
       run: |
         git clone --depth=1 https://github.com/chongshengB/rt-n56u.git /opt/rt-n56u
         cd /opt/rt-n56u/toolchain-mipsel
         sh dl_toolchain.sh
         mkdir -p /opt/images/
+
     - name: Fix htop makefile error
       run: |
         cd  /opt/rt-n56u/trunk/user/htop
         sed -i 's?https://bintray.com/htop/source/download_file\?file_path=htop-3.0.2.tar.gz?https://src.fedoraproject.org/repo/pkgs/htop/htop-3.0.2.tar.gz/sha512/5b578972e40e3229aa8b2bdc931c4c8bceaafd2a150b02e0257ab35a4fbac25852e959ecc472bd6747be57ea8734b59cc4b872a5ac829624cc80e1722c54d868/htop-3.0.2.tar.gz?' Makefile
+
     - name: Build Firmware
       env:
         TNAME: MI-R3G
@@ -101,6 +104,7 @@ jobs:
         sudo ./clear_tree
         sudo ./build_firmware_modify $TNAME 0
         sudo mv -f images/*.trx /opt/images/
+
     - name : Upload packages
       uses: actions/upload-artifact@master
       if: always()
