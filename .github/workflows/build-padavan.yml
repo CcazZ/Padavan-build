@@ -9,8 +9,6 @@ on:
     types: started
 
 env:
-  REPO_URL: https://github.com/coolsnowwolf/lede
-  REPO_BRANCH: master
   TNAME: MI-R3G
   UPLOAD_FIRMWARE: true
   UPLOAD_COWTRANSFER: false
@@ -43,13 +41,12 @@ jobs:
         mkdir -p /opt/images/
 
     - name: executing remote ssh commands using password
-      uses: appleboy/ssh-action@master
-      with:
-        host: ${{ secrets.HOST }}
-        username: ${{ secrets.USERNAME }}
-        password: ${{ secrets.PASSWORD }}
-        port: ${{ secrets.PORT }}
-        script: whoami
+    uses: appleboy/ssh-action@master
+    with:
+      host: ${{ secrets.HOST }}
+      username: ${{ secrets.USERNAME }}
+      password: ${{ secrets.PASSWORD }}
+      script: whoami
 
     - name: Edit .config
       run: |
