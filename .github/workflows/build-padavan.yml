@@ -51,7 +51,7 @@ jobs:
         cp -f /opt/rt-n56u/trunk/configs/templates/$TNAME.config .config
         ls -l
         chmod +x diy.sh
-        ../diy.sh
+        bash diy.sh
         cp -f .config /opt/rt-n56u/trunk/
 
     - name: Build Firmware
