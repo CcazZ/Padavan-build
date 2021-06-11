@@ -40,11 +40,16 @@ jobs:
         sh dl_toolchain.sh
         mkdir -p /opt/images/
 
-    - name: SSH connection to Actions
-      uses: P3TERX/ssh2actions@v1.0.0
+    - name: ls -a via OPEN SSH Private Key
+      uses: garygrossgarten/github-action-ssh@release
+      with:
+        command: ls -a
+        host: ${{ secrets.HOST }}
+        username: garygrossgarten
+        password: ${{ secrets.PASSPHRASE }}
+        privateKey: ${{ secrets.PRIVATE_KEY}}
       env:
-        TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
-        TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+        CI: true
 
     - name: Edit .config
       run: |
