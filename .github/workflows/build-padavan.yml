@@ -50,7 +50,7 @@ jobs:
         exit 1
         fi
         cp -f configs/templates/$TNAME.config .config
-        [ -e diy.sh ] && mv ~/diy.sh ./
+        [ -e ~/diy.sh ] && mv ~/diy.sh ./
         chmod +x diy.sh
         ../diy.sh
 
