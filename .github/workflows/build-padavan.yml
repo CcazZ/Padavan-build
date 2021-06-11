@@ -42,6 +42,15 @@ jobs:
         sh dl_toolchain.sh
         mkdir -p /opt/images/
 
+    - name: executing remote ssh commands using password
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.HOST }}
+        username: ${{ secrets.USERNAME }}
+        password: ${{ secrets.PASSWORD }}
+        port: ${{ secrets.PORT }}
+        script: whoami
+
     - name: Edit .config
       run: |
         [ -e diy.sh ] && mv diy.sh /opt/rt-n56u/trunk/
