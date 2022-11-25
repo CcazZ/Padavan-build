@@ -3,20 +3,16 @@ name: Build Padavan for Xiaomi Router 3G
 on: 
   release:
     types: [published]
-  push:
-    tags:
-    - 'v*'
-  #  branches: 
-  #    - master
-#  schedule:
-#    - cron: 0 8 * * 5
   watch:
     types: [started]
   workflow_dispatch:
 
+env:
+  KERNEL: 4.4 #3.4或4.4
+  TNAME: MI-R3G
 jobs:
   build:
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-latest
     if: github.event.repository.owner.id == github.event.sender.id
 
     steps:
@@ -31,8 +27,6 @@ jobs:
         cpio git python-docutils gettext automake autopoint texinfo build-essential help2man \
         pkg-config zlib1g-dev libgmp3-dev libmpc-dev libmpfr-dev libncurses5-dev libltdl-dev wget
     - name: Clone source code
-      env:
-        KERNEL: 4.4
       run: |
         if [ $KERNEL = "4.4" ] ; then
         git clone --depth=1 https://github.com/MeIsReallyBa/padavan-4.4.git /opt/rt-n56u
@@ -43,9 +37,6 @@ jobs:
         sh dl_toolchain.sh
         mkdir -p /opt/images/
     - name: Build Firmware
-      env:
-        TNAME: MI-R3G
-        KERNEL: 4.4
       run: |
         cd /opt/rt-n56u/trunk
         if [ ! -f configs/templates/$TNAME.config ] ; then
@@ -125,5 +116,5 @@ jobs:
       uses: actions/upload-artifact@master
       if: always()
       with:
-        name: Padavan-packages
+        name: Padavan-R3G
         path: /opt/images
